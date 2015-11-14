@@ -79,9 +79,15 @@ The array of url paths.
 
 #### options.limit
 Type: `Integer`
-Default value: `'5'`
+Default value: `5`
 
 The limit of snapshot processes to run concurrently.
+
+#### options.haltOnError
+Type: `Boolean`
+Default value: `false`
+
+Decides whether the task should halt immediately upon any snapshot error.
 
 ### Usage Examples
 

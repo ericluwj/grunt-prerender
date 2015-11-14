@@ -23,7 +23,8 @@ module.exports = function(grunt) {
       sitemap: '',
       urls: [],
       sitePath: '',
-      limit: 5
+      limit: 5,
+      haltOnError: false
     });
 
     var done = this.async();
@@ -87,10 +88,11 @@ module.exports = function(grunt) {
       snapshot.takeShot(sitePath + url, fileName, function(err) {
         if (err) {
           grunt.log.warn('Failed to snapshot', sitePath + url);
-          callback();
-        } else {
-          callback();
+          if (options.haltOnError) {
+            return callback(err);
+          }
         }
+        callback();
       });
     }
   });
