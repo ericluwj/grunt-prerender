@@ -42,6 +42,12 @@
     "grunt": "~0.4.5"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "prerender",
+    "seo",
+    "spa",
+    "angularjs",
+    "javascript",
+    "s3"
   ]
 }
