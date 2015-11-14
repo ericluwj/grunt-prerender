@@ -126,4 +126,13 @@ Anyone is welcome to contribute further to this project.
 Thorough testing has not been done.
 
 ## Release History
+_(0.2.0)_
+* Added async module to run processes concurrently, with new `limit` option to control the number of concurrent processes
+* Improved performance of snapshot processes
+* Added new `haltOnError` option to decide whether to stop the process upon error
+
+_(0.1.1)_
+* Fixed dependency bugs
+
 _(0.1.0)_
+* Initial Commit
