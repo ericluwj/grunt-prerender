@@ -1,7 +1,7 @@
 {
   "name": "grunt-prerender",
   "description": "Automate the prerendering of SPA applications for use with serverless architecture.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/ericluwj/grunt-prerender",
   "author": {
     "name": "Eric Lu",

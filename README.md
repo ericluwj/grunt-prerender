@@ -126,6 +126,9 @@ Anyone is welcome to contribute further to this project.
 Thorough testing has not been done.
 
 ## Release History
+_(0.2.1)_
+* Added npm keywords
+
 _(0.2.0)_
 * Added async module to run processes concurrently, with new `limit` option to control the number of concurrent processes
 * Improved performance of snapshot processes
