@@ -52,9 +52,6 @@ module.exports = function(grunt) {
           dest: 'snapshots/',
           // sitePath: 'http://www.jobbies.co',
           // urls: ['/', '/jobs/browse']
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
         }
       }
     },
