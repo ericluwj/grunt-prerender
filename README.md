@@ -77,6 +77,12 @@ Default value: `[]`
 
 The array of url paths.
 
+#### options.limit
+Type: `Integer`
+Default value: `'5'`
+
+The limit of snapshot processes to run concurrently.
+
 ### Usage Examples
 
 #### Option using sitemap
