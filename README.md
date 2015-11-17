@@ -20,8 +20,10 @@ grunt.loadNpmTasks('grunt-prerender');
 ## The "prerender" task
 
 ### Overview
+You can read more about this tool at http://www.ericluwj.com/2015/11/17/seo-for-angularjs-on-s3.html.
+
 This tool allows you to prerender your SPA application and make it SEO-friendly for content marketing purposes, without the use of servers.
-This is very useful, especially when you place your client-side applications on infrastructure that does not support full web server features (e.g. AWS S3/Cloudfront).
+This is very useful, especially when you place your client-side applications on infrastructure that does not support full web server features (e.g. AWS S3/Cloudfront, Github Pages).
 You can use this tool to prerender your SPA application before uploading the generated snapshots onto the relevant infrastructure (e.g. AWS S3).
 
 So far, this tool provides the only way to make your SPA application (uploaded on AWS S3/Cloudfront) SEO-friendly.
@@ -29,7 +31,7 @@ So far, this tool provides the only way to make your SPA application (uploaded o
 There are a few assumptions for this tool to work:
 1. Your SPA application is available as `index.html` on your site.
 2. `<base href="/">` to ensure all assets with relative urls will continue to be accessible or don't use relative links at all.
-3. The various url paths are accessible. (In the case of AWS S3, if you are using HTML5 pushstate, you need to add the 404 error redirection rule to add the `!` hashtag in order for the url to be deciphered correctly.)
+3. The various url paths are accessible. (In the case of AWS S3, if you are using HTML5 pushstate with the hash prefix (`!`), you need to add the 404 error redirection rule to add the `!` hashtag in order for the url to be deciphered correctly.)
 
 How this tool works is by taking a HTML snapshot of a particular url path and then saving it as `index.html` under the directory path itself. 
 For example, for the following url `http://www.mysite.com/a/`, the HTML snapshot for the url will be saved as `index.html` within the directory `a` under the root folder.
