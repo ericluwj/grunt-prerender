@@ -26,8 +26,6 @@ This tool allows you to prerender your SPA application and make it SEO-friendly 
 This is very useful, especially when you place your client-side applications on infrastructure that does not support full web server features (e.g. AWS S3/Cloudfront, Github Pages).
 You can use this tool to prerender your SPA application before uploading the generated snapshots onto the relevant infrastructure (e.g. AWS S3).
 
-So far, this tool provides the only way to make your SPA application (uploaded on AWS S3/Cloudfront) SEO-friendly.
-
 There are a few assumptions for this tool to work:
 1. Your SPA application is available as `index.html` on your site.
 2. `<base href="/">` to ensure all assets with relative urls will continue to be accessible or don't use relative links at all.
