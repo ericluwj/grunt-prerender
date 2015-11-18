@@ -51,6 +51,7 @@ module.exports = function(grunt) {
           hashPrefix: '!',
           sitemap: 'http://www.jobbies.co/sitemap.xml',
           dest: 'snapshots/',
+          // phantomScript: 'lib/snapshot.js'
           // sitePath: 'http://www.jobbies.co',
           // urls: ['/', '/jobs/browse']
         }
