@@ -142,6 +142,9 @@ Anyone is welcome to contribute further to this project.
 Thorough testing has not been done.
 
 ## Release History
+_(0.2.4)_
+* Fixed bug with `phantomScript` path
+
 _(0.2.3)_
 * Added new option `phantomScript` to allow custom phantomjs scripts
 

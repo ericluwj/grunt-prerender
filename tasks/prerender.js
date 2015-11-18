@@ -57,7 +57,7 @@ module.exports = function(grunt) {
     }
 
     var snapshotOptions = {
-      phantomScript: options.phantomScript ? asset(options.phantomScript) : options.phantomScript
+      phantomScript: options.phantomScript
     };
 
     function crawlUrls(urls) {
