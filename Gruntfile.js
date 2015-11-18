@@ -48,6 +48,7 @@ module.exports = function(grunt) {
       },
       test: {
         options: {
+          hashPrefix: '!',
           sitemap: 'http://www.jobbies.co/sitemap.xml',
           dest: 'snapshots/',
           // sitePath: 'http://www.jobbies.co',

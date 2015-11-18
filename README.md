@@ -20,16 +20,18 @@ grunt.loadNpmTasks('grunt-prerender');
 ## The "prerender" task
 
 ### Overview
-You can read more about this tool at http://www.ericluwj.com/2015/11/17/seo-for-angularjs-on-s3.html.
-
 This tool allows you to prerender your SPA application and make it SEO-friendly for content marketing purposes, without the use of servers.
 This is very useful, especially when you place your client-side applications on infrastructure that does not support full web server features (e.g. AWS S3/Cloudfront, Github Pages).
-You can use this tool to prerender your SPA application before uploading the generated snapshots onto the relevant infrastructure (e.g. AWS S3).
+You can use this tool to prerender your SPA application before uploading the generated snapshots onto the relevant infrastructure (e.g. AWS S3, Github Pages).
+
+You can read more about this tool at http://www.ericluwj.com/2015/11/17/seo-for-angularjs-on-s3.html.
+You are encouraged to use version 0.2.2 as the tool now automatically does a snapshot of the hashed or hashbanged version of URLs, so that it can support all static file hosts (AWS S3, Google Cloud Storage, Rackspace Cloud Files, etc.).
 
 There are a few assumptions for this tool to work:
 1. Your SPA application is available as `index.html` on your site.
 2. `<base href="/">` to ensure all assets with relative urls will continue to be accessible or don't use relative links at all.
-3. The various url paths are accessible. (In the case of AWS S3, if you are using HTML5 pushstate with the hash prefix (`!`), you need to add the 404 error redirection rule to add the `!` hashtag in order for the url to be deciphered correctly.)
+~~3. The various url paths are accessible. (In the case of AWS S3, if you are using HTML5 pushstate with the hash prefix (`!`), you need to add the 404 error redirection rule to add the `!` hashtag in order for the url to be deciphered correctly.)~~
+*Note: As of version 0.2.2, you no longer need to ensure deep-linked URLs can work, as this tool will now automatically use the hashed or hashbanged versions of the URLs and crawl the `index.html` in the root directory.*
 
 How this tool works is by taking a HTML snapshot of a particular url path and then saving it as `index.html` under the directory path itself. 
 For example, for the following url `http://www.mysite.com/a/`, the HTML snapshot for the url will be saved as `index.html` within the directory `a` under the root folder.
@@ -71,6 +73,12 @@ Default value: `''`
 
 The site path that the array of urls `urls` are based upon.
 
+#### options.hashPrefix
+Type: `String`
+Default value: `''`
+
+The hash prefix that you set for the Javascript application, e.g. '!'.
+
 #### options.urls
 Type: `Array`
 Default value: `[]`
@@ -100,7 +108,8 @@ grunt.initConfig({
   prerender: {
     options: {
       sitemap: 'http://www.mysite.com/sitemap.xml',
-      dest: 'snapshots/'
+      dest: 'snapshots/',
+      hashPrefix: '!'
     }
   },
 });
@@ -115,7 +124,8 @@ grunt.initConfig({
     options: {
       sitePath: 'http://www.mysite.com',
       urls: ['/', '/a/', '/b/'],  // and other paths ...
-      dest: 'snapshots/'
+      dest: 'snapshots/',
+      hashPrefix: '!'
     }
   },
 });
@@ -126,6 +136,9 @@ Anyone is welcome to contribute further to this project.
 Thorough testing has not been done.
 
 ## Release History
+_(0.2.2)_
+* Added new option `hashPrefix`
+
 _(0.2.1)_
 * Added npm keywords
 

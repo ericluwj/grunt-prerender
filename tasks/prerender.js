@@ -23,6 +23,7 @@ module.exports = function(grunt) {
       sitemap: '',
       urls: [],
       sitePath: '',
+      hashPrefix: '',
       limit: 5,
       haltOnError: false
     });
@@ -83,7 +84,7 @@ module.exports = function(grunt) {
           fileName = options.dest + plainUrl + '/index.html';
         }
       }
-      grunt.log.writeln('Generating', sitePath + url, 'at', fileName);
+      grunt.log.writeln('Generating', sitePath + '/#' + options.hashPrefix + url, 'at', fileName);
 
       snapshot.takeShot(sitePath + url, fileName, function(err) {
         if (err) {
