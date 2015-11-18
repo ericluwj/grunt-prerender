@@ -25,13 +25,13 @@ This is very useful, especially when you place your client-side applications on 
 You can use this tool to prerender your SPA application before uploading the generated snapshots onto the relevant infrastructure (e.g. AWS S3, Github Pages).
 
 You can read more about this tool at http://www.ericluwj.com/2015/11/17/seo-for-angularjs-on-s3.html.
-You are encouraged to use version 0.2.4 as the tool now automatically does a snapshot of the hashed or hashbanged version of URLs, so that it can support all static file hosts (AWS S3, Google Cloud Storage, Rackspace Cloud Files, etc.).
+You are encouraged to use version 0.2.5 as the tool now automatically does a snapshot of the hashed or hashbanged version of URLs, so that it can support all static file hosts (AWS S3, Google Cloud Storage, Rackspace Cloud Files, etc.).
 
 There are a few assumptions for this tool to work:
 1. Your SPA application is available as `index.html` on your site.
 2. `<base href="/">` to ensure all assets with relative urls will continue to be accessible or don't use relative links at all.
 ~~3. The various url paths are accessible. (In the case of AWS S3, if you are using HTML5 pushstate with the hash prefix (`!`), you need to add the 404 error redirection rule to add the `!` hashtag in order for the url to be deciphered correctly.)~~
-*Note: As of version 0.2.4, you no longer need to ensure deep-linked URLs can work, as this tool will now automatically use the hashed or hashbanged versions of the URLs and crawl the `index.html` in the root directory.*
+*Note: As of version 0.2.5, you no longer need to ensure deep-linked URLs can work, as this tool will now automatically use the hashed or hashbanged versions of the URLs and crawl the `index.html` in the root directory.*
 
 How this tool works is by taking a HTML snapshot of a particular url path and then saving it as `index.html` under the directory path itself. 
 For example, for the following url `http://www.mysite.com/a/`, the HTML snapshot for the url will be saved as `index.html` within the directory `a` under the root folder.
@@ -142,6 +142,9 @@ Anyone is welcome to contribute further to this project.
 Thorough testing has not been done.
 
 ## Release History
+_(0.2.5)_
+* Fixed bug with `phantomScript` path
+
 _(0.2.4)_
 * Fixed bug with `phantomScript` path
 
