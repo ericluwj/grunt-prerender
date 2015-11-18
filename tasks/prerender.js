@@ -25,7 +25,8 @@ module.exports = function(grunt) {
       sitePath: '',
       hashPrefix: '',
       limit: 5,
-      haltOnError: false
+      haltOnError: false,
+      phantomScript: ''
     });
 
     var done = this.async();
@@ -54,6 +55,10 @@ module.exports = function(grunt) {
       var urls = options.urls;
       crawlUrls(urls);
     }
+
+    var snapshotOptions = {
+      phantomScript: options.phantomScript ? asset(options.phantomScript) : options.phantomScript
+    };
 
     function crawlUrls(urls) {
       async.eachLimit(urls, options.limit, function(url, callback) {
@@ -86,7 +91,7 @@ module.exports = function(grunt) {
       }
       grunt.log.writeln('Generating', sitePath + '/#' + options.hashPrefix + url, 'at', fileName);
 
-      snapshot.takeShot(sitePath + url, fileName, function(err) {
+      snapshot.takeShot(sitePath + url, fileName, snapshotOptions, function(err) {
         if (err) {
           grunt.log.warn('Failed to snapshot', sitePath + url);
           if (options.haltOnError) {

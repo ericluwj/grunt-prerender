@@ -97,6 +97,12 @@ Default value: `false`
 
 Decides whether the task should halt immediately upon any snapshot error.
 
+#### options.phantomScript
+Type: `String`
+Default value: `''`
+
+File path of the custom phantom script to be used instead. You can customize from the default phantom script found at `lib/snapshot.js`. This option is provided because it is understood that sometimes too much preprocessing work of the HTML might be required.
+
 ### Usage Examples
 
 #### Option using sitemap
@@ -136,6 +142,9 @@ Anyone is welcome to contribute further to this project.
 Thorough testing has not been done.
 
 ## Release History
+_(0.2.3)_
+* Added new option `phantomScript` to allow custom phantomjs scripts
+
 _(0.2.2)_
 * Added new option `hashPrefix`
 
