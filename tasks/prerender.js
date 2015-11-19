@@ -35,6 +35,10 @@ module.exports = function(grunt) {
 
     grunt.log.writeln('Prerendering ...');
 
+    var snapshotOptions = {
+      phantomScript: options.phantomScript
+    };
+
     if (options.sitemap) {
       var urlObj = require('url').parse(options.sitemap);
       sitePath = urlObj.protocol + '//' + urlObj.host;
@@ -55,10 +59,6 @@ module.exports = function(grunt) {
       var urls = options.urls;
       crawlUrls(urls);
     }
-
-    var snapshotOptions = {
-      phantomScript: options.phantomScript
-    };
 
     function crawlUrls(urls) {
       async.eachLimit(urls, options.limit, function(url, callback) {
