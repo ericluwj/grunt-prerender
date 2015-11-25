@@ -20,7 +20,7 @@ grunt.loadNpmTasks('grunt-prerender');
 ## The "prerender" task
 
 ### Overview
-This tool allows you to prerender your SPA application and make it SEO-friendly for content marketing purposes, without the use of servers.
+This tool allows you to prerender your SPA application and make it SEO-friendly for content marketing purposes, especially for AngularJS applications.
 This is very useful, especially when you place your client-side applications on infrastructure that does not support full web server features (e.g. AWS S3/Cloudfront, Github Pages).
 You can use this tool to prerender your SPA application before uploading the generated snapshots onto the relevant infrastructure (e.g. AWS S3, Github Pages).
 
@@ -28,13 +28,13 @@ You can read more about this tool at http://www.ericluwj.com/2015/11/17/seo-for-
 You are encouraged to use version 0.2.8 as the tool now automatically does a snapshot of the hashed or hashbanged version of URLs, so that it can support all static file hosts (AWS S3, Google Cloud Storage, Rackspace Cloud Files, etc.).
 
 There are a few assumptions for this tool to work:
+
 1. Your SPA application is available as `index.html` on your site.
 2. `<base href="/">` to ensure all assets with relative urls will continue to be accessible or don't use relative links at all.
-~~3. The various url paths are accessible. (In the case of AWS S3, if you are using HTML5 pushstate with the hash prefix (`!`), you need to add the 404 error redirection rule to add the `!` hashtag in order for the url to be deciphered correctly.)~~
-*Note: As of version 0.2.8, you no longer need to ensure deep-linked URLs can work, as this tool will now automatically use the hashed or hashbanged versions of the URLs and crawl the `index.html` in the root directory.*
+3. Your SPA application should support hashed or hashbanged versions of URLs. (See `hashPrefix` property to set your hash prefix.)
 
 How this tool works is by taking a HTML snapshot of a particular url path and then saving it as `index.html` under the directory path itself. 
-For example, for the following url `http://www.mysite.com/a/`, the HTML snapshot for the url will be saved as `index.html` within the directory `a` under the root folder.
+For example, for the following url `http://www.mysite.com/a/`, the tool will crawl the hashed url `http://www.mysite.com/#/a/`, and the HTML snapshot for the url will be saved as `index.html` within the directory `a` under the root folder.
 
 In your project's Gruntfile, add a section named `prerender` to the data object passed into `grunt.initConfig()`.
 
