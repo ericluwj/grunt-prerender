@@ -23,10 +23,14 @@ module.exports = function(grunt) {
       sitemap: '',
       urls: [],
       sitePath: '',
+      hashed: true,
       hashPrefix: '',
+      timeout: 7000,
       limit: 5,
       haltOnError: false,
-      phantomScript: ''
+      phantomScript: '',
+      selector: '',
+      interval: 300
     });
 
     var done = this.async();
@@ -36,7 +40,10 @@ module.exports = function(grunt) {
     grunt.log.writeln('Prerendering ...');
 
     var snapshotOptions = {
-      phantomScript: options.phantomScript
+      phantomScript: options.phantomScript,
+      timeout: options.timeout,
+      selector: options.selector,
+      interval: options.interval
     };
 
     if (options.sitemap) {
@@ -58,6 +65,15 @@ module.exports = function(grunt) {
 
       var urls = options.urls;
       crawlUrls(urls);
+    }
+
+    function processUrl(sitePath, url) {
+      if (options.hashed) {
+        if (url === '' || url === '/') return sitePath + url;
+        return sitePath + '/#' + options.hashPrefix + url;
+      } else {
+        return sitePath + url;
+      }
     }
 
     function crawlUrls(urls) {
@@ -89,11 +105,11 @@ module.exports = function(grunt) {
           fileName = options.dest + plainUrl + '/index.html';
         }
       }
-      grunt.log.writeln('Generating', sitePath + '/#' + options.hashPrefix + url, 'at', fileName);
+      grunt.log.writeln('Generating', processUrl(sitePath, url), 'at', fileName);
 
-      snapshot.takeShot(sitePath + url, fileName, snapshotOptions, function(err) {
+      snapshot.takeShot(processUrl(sitePath, url), fileName, snapshotOptions, function(err) {
         if (err) {
-          grunt.log.warn('Failed to snapshot', sitePath + url);
+          grunt.log.warn('Failed to snapshot', processUrl(sitePath, url));
           if (options.haltOnError) {
             return callback(err);
           }

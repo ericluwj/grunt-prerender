@@ -24,8 +24,8 @@ This tool allows you to prerender your SPA application and make it SEO-friendly 
 This is very useful, especially when you place your client-side applications on infrastructure that does not support full web server features (e.g. AWS S3/Cloudfront, Github Pages).
 You can use this tool to prerender your SPA application before uploading the generated snapshots onto the relevant infrastructure (e.g. AWS S3, Github Pages).
 
+You are encouraged to use version 0.3.0 as the tool now automatically does a snapshot of the hashed or hashbanged version of URLs, so that it can support all static file hosts (AWS S3, Google Cloud Storage, Rackspace Cloud Files, etc.).
 You can read more about this tool at http://www.ericluwj.com/2015/11/17/seo-for-angularjs-on-s3.html.
-You are encouraged to use version 0.2.8 as the tool now automatically does a snapshot of the hashed or hashbanged version of URLs, so that it can support all static file hosts (AWS S3, Google Cloud Storage, Rackspace Cloud Files, etc.).
 
 There are a few assumptions for this tool to work:
 
@@ -73,17 +73,30 @@ Default value: `''`
 
 The site path that the array of urls `urls` are based upon.
 
-#### options.hashPrefix
-Type: `String`
-Default value: `''`
-
-The hash prefix that you set for the Javascript application, e.g. '!'.
-
 #### options.urls
 Type: `Array`
 Default value: `[]`
 
 The array of url paths.
+
+#### options.hashed
+Type: `Boolean`
+Default value: `true`
+
+Decides whether to hash your URL by default.
+Default is `true` as this tool is catered for Javascript SPA applications.
+
+#### options.hashPrefix
+Type: `String`
+Default value: `''`
+
+The hash prefix that you set for the Javascript application, e.g. '!', if `hashed` is set to `true`.
+
+#### options.timeout
+Type: `Integer`
+Default value: `7000`
+
+The timeout in milliseconds of the entire snapshot process of each page, in case the page is loading too slowly. 
 
 #### options.limit
 Type: `Integer`
@@ -101,7 +114,32 @@ Decides whether the task should halt immediately upon any snapshot error.
 Type: `String`
 Default value: `''`
 
-File path of the custom phantom script to be used instead. You can customize from the default phantom script found at `lib/snapshot.js`. This option is provided because it is understood that sometimes too much preprocessing work of the HTML might be required.
+File path of the custom phantom script to be used instead.
+If value is `basic`, it runs the `basic.js` script found under `lib/phantom/`. This script basically takes a HTML snapshot after the timeout.
+If value is `selector`, it runs the `selector.js` script found under `lib/phantom/`. This script will recursively check whether the `selector` option (See `selector` option below) element has been loaded before taking a HTML snapshot.
+You can also customize from the default phantom script found at `lib/phantom/basic.js` and set this value to the path of the phantom script file relative to your working directory.
+
+The arguments provided to the phantom script are as such:
+url = system.args[1]; (The URL to take snapshot)
+output = system.args[2]; (The output path of the HTML snapshot file)
+timeout = parseInt(system.args[3]); (The timeout)
+selector = system.args[4]; (The DOM selector if applicable)
+interval = parseInt(system.args[5]); (The time interval to keep checking the DOM selector if applicable)
+
+#### options.selector (optional)
+Type: `String`
+Default value: `''`
+
+The `document.querySelector` selector used to detect whether the page has finished loading.
+You would generally set this to the element selector that you think will load last.
+This is only useful if you have set `phantomScript` to `selector` or if you use it in your custom phantomjs script.
+
+#### options.interval
+Type: `String`
+Default value: `300`
+
+The time interval to keep checking the `selector` DOM element.
+This is only useful if you have set `phantomScript` to `selector` or if you use it in your custom phantomjs script.
 
 ### Usage Examples
 
@@ -142,6 +180,11 @@ Anyone is welcome to contribute further to this project.
 Thorough testing has not been done.
 
 ## Release History
+_(0.3.0)_
+* Created 2 simple Phantomjs scripts to choose from
+* Added new options: `hashed`, `timeout`, `selector`, `interval`
+* Fixed URL to take snapshot
+
 _(0.2.8)_
 * Converted dependencies to use exact versions, especially due to unstable phantomjs2 versions.
 
