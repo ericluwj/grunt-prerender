@@ -180,6 +180,9 @@ Anyone is welcome to contribute further to this project.
 Thorough testing has not been done.
 
 ## Release History
+_(0.4.0)_
+* Reverted to using Phantomjs instead of Phantomjs2 due to numerous issues with Phantomjs2
+
 _(0.3.0)_
 * Created 2 simple Phantomjs scripts to choose from
 * Added new options: `hashed`, `timeout`, `selector`, `interval`
